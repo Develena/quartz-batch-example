@@ -1,0 +1,52 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: demo
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mariadb://140.238.7.127:4006/ondemand
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: ondemand
+      password: xhdgkqvmffotvhaondemand!!
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+  batch:
+    job:
+      enabled: false
+
+org:
+    quartz:
+        scheduler:
+            instanceId: AUTO
+            instanceName: quartz-batch-example
+            makeSchedulerThreadDaemon : true
+            interruptJobsOnShutdown  : true
+        jobStore:
+            clusterCheckinInterval: 20000
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            isClustered: true
+            misfireThreshold: 60000
+            tablePrefix: QRTZ_
+            useProperties: false
+        threadPool:
+            threadCount: 5
+            makeThreadsDaemons : true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
